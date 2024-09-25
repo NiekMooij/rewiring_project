@@ -124,15 +124,16 @@ def rewire_iteration(G, tau_old, T=2.1):
         
 def network_cycle(G, rewire_count=100, T=0.0025):
     G_arr = []
-    tau = 0
+    tau_arr = [get_first_bifurcation(G=G, tau_initial=1e-8, tolerance=1e-20)[0]]
 
     for index in range(rewire_count):
-        rewired_flag, G, tau = rewire_iteration(G, tau_old=tau, T=T)
+        rewired_flag, G, tau = rewire_iteration(G, tau_old=tau_arr[-1], T=T)
         G_arr.append(G)
+        tau_arr.append(tau)
         
         percentage = (index+1) / rewire_count * 100
         print(f'{percentage:.2f}% done', end='\r')
         
-    cycle = { 'nodes': G.nodes(), 'edges': [ G.edges() for G in G_arr ] }
+    cycle = { 'nodes': G.nodes(), 'edges': [ G.edges() for G in G_arr ], 'tau_arr': tau_arr }
 
     return cycle
