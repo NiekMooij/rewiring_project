@@ -22,7 +22,7 @@ setup(
             'random_bipartite=rewiring_project.generate_graphs.random_bipartite:main',
             'random_geometric=rewiring_project.generate_graphs.random_geometric:main',
             'barabasi_albert=rewiring_project.generate_graphs.barabasi_albert:main',
-            'random_regular=rewiring_project.generate_graphs.random_regular',
+            'random_regular=rewiring_project.generate_graphs.random_regular:main',
             'uniform_graph=rewiring_project.generate_graphs.uniform_graph:main',
             'get_first_bifurcation=rewiring_project.get_first_bifurcation:main',
             'rewire_random_edges=rewiring_project.rewire.rewire_random_edges:main',
