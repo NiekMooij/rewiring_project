@@ -8,7 +8,7 @@ from .generate_graphs.barabasi_albert import barabasi_albert
 from .generate_graphs.random_regular import random_regular
 from .generate_graphs.uniform_graph import uniform_graph
 
-import get_first_bifurcation
+from .get_first_bifurcation import get_first_bifurcation
 
 from .rewire import rewire_random_edges
 from .rewire import rewired_graph
