@@ -51,14 +51,14 @@ def dFdtau(A: np.ndarray, tau: float, point: np.ndarray) -> float:
         products = np.array([np.prod([point[j] for j in range(len(point)) if j != i]) for i in range(len(point))])
         return np.sum(derivatives * products)
 
-
-def get_first_bifurcation(G: nx.Graph, tau_initial: float, tolerance: float) -> float:
+def get_first_bifurcation(G: nx.Graph, tau_initial: float, tolerance: float, regular=False) -> float:
     """Find bifurcation tau.
 
     Parameters:
     - G (nx.Graph): The input graph.
     - tau_initial (float): Initial value of tau.
     - tolerance (float): Tolerance value.
+    - regular (bool): Regular or not.
 
     Returns:
     - float: The bifurcation tau.
@@ -70,6 +70,9 @@ def get_first_bifurcation(G: nx.Graph, tau_initial: float, tolerance: float) -> 
     tau = tau_initial
     iteration = 0
     max_iterations = 500
+
+    if regular:
+        return tau_max, True
 
     while dt > tolerance and tau < tau_max and iteration < max_iterations:
         M = tau * A + np.identity(len(G))
