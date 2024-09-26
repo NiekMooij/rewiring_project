@@ -7,6 +7,7 @@ from .generate_graphs.random_geometric import random_geometric
 from .generate_graphs.barabasi_albert import barabasi_albert
 from .generate_graphs.random_regular import random_regular
 from .generate_graphs.uniform_graph import uniform_graph
+from .generate_graphs.watts_strogatz import watts_strogatz
 
 from .get_first_bifurcation import get_first_bifurcation
 
@@ -24,6 +25,7 @@ __all__ = [
             'barabasi_albert',
             'random_regular',
             'uniform_graph',
+            'watts_strogatz',
             'get_first_bifurcation',
             'rewire_random_edges',
             'rewired_graph',
