@@ -68,7 +68,7 @@ def rewired_graph(G, max_attempts=1000):
     print('No potential rewiring found!')
     return False
 
-def accept_rewire(G, G_rewired, T):
+def accept_rewire(G, G_rewired, T, optimise=True):
     """
     Determines whether to accept the rewiring based on the Metropolis criterion.
 
@@ -88,18 +88,31 @@ def accept_rewire(G, G_rewired, T):
 
     diff = tau_rewired - tau
 
-    if diff > 0:
-        return True, tau_rewired
-    
-    else:
-        if T == 0:
-            return False, tau
-        elif np.random.uniform(0, 1) < np.exp(diff / T):
+    if optimise:
+        if diff > 0:
             return True, tau_rewired
+        
         else:
-            return False, tau
+            if T == 0:
+                return False, tau
+            elif np.random.uniform(0, 1) < np.exp(diff / T):
+                return True, tau_rewired
+            else:
+                return False, tau
+            
+    else:
+        if diff < 0:
+            return True, tau_rewired
+        
+        else:
+            if T == 0:
+                return False, tau
+            elif np.random.uniform(0, 1) < np.exp(diff / T):
+                return True, tau_rewired
+            else:
+                return False, tau
 
-def rewire_iteration(G, tau_old, T=2.1):
+def rewire_iteration(G, tau_old, T=2.1, optimise=True):
     """
     Perform one iteration of the rewiring process.
 
@@ -114,7 +127,7 @@ def rewire_iteration(G, tau_old, T=2.1):
 
     if G_rewired:
         # print(accept_rewire(G, G_rewired, T))
-        flag, tau = accept_rewire(G, G_rewired, T)
+        flag, tau = accept_rewire(G, G_rewired, T, optimise=optimise)
     
         if flag:
             return True, G_rewired, tau
@@ -122,12 +135,12 @@ def rewire_iteration(G, tau_old, T=2.1):
         else: 
             return False, G, tau_old
         
-def network_cycle(G, rewire_count=100, T=0.0025, seek_maximum=False):
+def network_cycle(G, rewire_count=100, T=0.0025, seek_maximum=False, optimise=True):
     G_arr = []
     tau_arr = [get_first_bifurcation(G=G, tau_initial=1e-8, tolerance=1e-20)[0]]
 
     for index in range(rewire_count):
-        rewired_flag, G, tau = rewire_iteration(G, tau_old=tau_arr[-1], T=T)
+        rewired_flag, G, tau = rewire_iteration(G, tau_old=tau_arr[-1], T=T, optimise=optimise)
         G_arr.append(G)
         tau_arr.append(tau)
         
