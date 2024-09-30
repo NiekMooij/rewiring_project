@@ -107,7 +107,7 @@ def accept_rewire(G, G_rewired, T, optimise=True):
         else:
             if T == 0:
                 return False, tau
-            elif np.random.uniform(0, 1) < np.exp(diff / T):
+            elif np.random.uniform(0, 1) < np.exp(abs(diff) / T):
                 return True, tau_rewired
             else:
                 return False, tau
