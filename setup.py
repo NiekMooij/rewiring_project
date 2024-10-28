@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='rewiring_project',
-    version='1.0.0',
+    version='1.0.1',
     author='Niek Mooij',
     author_email='mooij.niek@gmail.com',
     description='All code used in the rewiring project.',
