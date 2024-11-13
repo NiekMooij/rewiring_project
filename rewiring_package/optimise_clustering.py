@@ -110,7 +110,7 @@ def accept_rewire(clustering_old, G_rewired, T, optimise=True):
             else:
                 return False, clustering_old
 
-def rewire_iteration(G, clustering_old, T=2.1):
+def rewire_iteration(G, clustering_old, T=2.1, optimise=True):
     """
     Perform one iteration of the rewiring process.
 
@@ -125,7 +125,7 @@ def rewire_iteration(G, clustering_old, T=2.1):
 
     if G_rewired:
         # print(accept_rewire(G, G_rewired, T))
-        flag, clustering = accept_rewire(clustering_old=clustering_old, G_rewired=G_rewired, T=T)
+        flag, clustering = accept_rewire(clustering_old=clustering_old, G_rewired=G_rewired, T=T, optimise=optimise)
     
         if flag:
             return True, G_rewired, clustering
