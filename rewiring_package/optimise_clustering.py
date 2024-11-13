@@ -138,7 +138,7 @@ def optimise_clustering(G, rewire_count=100, T=0.0025, optimise=True):
     clustering_arr = [nx.average_clustering(G)]
 
     for index in range(rewire_count):
-        rewired_flag, G, clustering = rewire_iteration(G, tau_old=clustering_arr[-1], T=T, optimise=optimise)
+        rewired_flag, G, clustering = rewire_iteration(G, clustering_old=clustering_arr[-1], T=T, optimise=optimise)
         G_arr.append(G)
         clustering_arr.append(clustering)
         
